@@ -22,7 +22,7 @@ export default class Leaderboard extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/exercises/')
+        axios.get('/exercises/')
             .then(response => {
                 this.setState({ exercises: response.data})
             })
@@ -32,7 +32,7 @@ export default class Leaderboard extends Component {
     }
 
     getClassTotal2020() {
-        axios.get('http://localhost:5000/exercises/')
+        axios.get('/exercises/')
             .then(response => {
                 console.log("DATA", response.data);
                 console.log("FILTERED", response.data.filter(el => el.classyear === "2020"));
@@ -48,7 +48,7 @@ export default class Leaderboard extends Component {
     }
 
     getClassTotal2021() {
-        axios.get('http://localhost:5000/exercises/')
+        axios.get('/exercises/')
             .then(response => {
                 this.setState({ exercises2021: response.data.filter(el => el.classyear === "2021").reduce((a, b) => a + b.yardage, 0)})
             })
@@ -59,7 +59,7 @@ export default class Leaderboard extends Component {
     }
 
     getClassTotal2022() {
-        axios.get('http://localhost:5000/exercises/')
+        axios.get('/exercises/')
             .then(response => {
                 this.setState({ exercises2022: response.data.filter(el => el.classyear === "2022").reduce((a, b) => a + b.yardage, 0)})
             })
@@ -70,7 +70,7 @@ export default class Leaderboard extends Component {
     }
 
     getClassTotal2023() {
-        axios.get('http://localhost:5000/exercises/')
+        axios.get('/exercises/')
             .then(response => {
                 this.setState({ exercises2023: response.data.filter(el => el.classyear === "2023").reduce((a, b) => a + b.yardage, 0)})
             })
@@ -81,7 +81,7 @@ export default class Leaderboard extends Component {
     }
 
     getClassTotal2024() {
-        axios.get('http://localhost:5000/exercises/')
+        axios.get('/exercises/')
             .then(response => {
                 this.setState({ exercises2024: response.data.filter(el => el.classyear === "2024").reduce((a, b) => a + b.yardage, 0)})
             })
