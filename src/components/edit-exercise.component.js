@@ -114,6 +114,7 @@ export default class EditExercise extends Component {
       classyear: this.state.classyear,
       description: this.state.description,
       duration: this.state.duration,
+      yardage: this.state.yardage,
       date: this.state.date
     }
 
