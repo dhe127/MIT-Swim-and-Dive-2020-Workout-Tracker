@@ -29,6 +29,13 @@ export default class Leaderboard extends Component {
             .catch((error) => {
                 console.log(error);
             })
+        this.setState({
+            exercises2020: this.getClassTotal2020(),
+            exercises2021: this.getClassTotal2021(),
+            exercises2022: this.getClassTotal2022(),
+            exercises2023: this.getClassTotal2023(),
+            exercises2024: this.getClassTotal2024()
+        })
     }
 
     getClassTotal2020() {
@@ -103,12 +110,12 @@ export default class Leaderboard extends Component {
                 <h3>Leaderboard</h3>
 
 
-                <p>Class of 2020 Total: {this.getClassTotal2020()}</p>
-                <p>Class of 2021 Total: {this.getClassTotal2021()}</p>
-                <p>Class of 2022 Total: {this.getClassTotal2022()}</p>
-                <p>Class of 2023 Total: {this.getClassTotal2023()}</p>
-                <p>Class of 2024 Total: {this.getClassTotal2024()}</p>
-                {/* <table className="table">
+                <p>Class of 2020 Total: {this.state.exercises2020}</p>
+                <p>Class of 2021 Total: {this.state.exercises2021}</p>
+                <p>Class of 2022 Total: {this.state.exercises2022}</p>
+                <p>Class of 2023 Total: {this.state.exercises2023}</p>
+                <p>Class of 2024 Total: {this.state.exercises2024}</p>
+                {/* <table className="table"
                     <thead className="thead-light">
                         <tr>
                             <th>2020</th>

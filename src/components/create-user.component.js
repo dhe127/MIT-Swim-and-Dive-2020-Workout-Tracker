@@ -45,6 +45,8 @@ export default class CreateUser extends Component {
             username: '',
             classyear: ''
         })
+
+        window.alert("User: " + user.username + " added!");
     }
 
     render() {

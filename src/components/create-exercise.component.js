@@ -112,7 +112,7 @@ export default class CreateExercise extends Component {
         axios.post('/exercises/add', exercise)
         .then(res => console.log(res.data));
 
-        // window.location = '/';
+        window.alert("Exercise: " + exercise.description + " on " + exercise.date + " added!");
     }
     render() {
         console.warn(this.state.users);
