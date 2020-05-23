@@ -8,6 +8,7 @@ export default class EditExercise extends Component {
     super(props);
 
     this.onChangeUsername = this.onChangeUsername.bind(this);
+    this.onChangeClassYear = this.onChangeClassYear.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
     this.onChangeDuration = this.onChangeDuration.bind(this);
     this.onChangeDate = this.onChangeDate.bind(this);
@@ -60,6 +61,12 @@ export default class EditExercise extends Component {
     })
   }
 
+  onChangeClassYear(e) {
+    this.setState({
+      classyear: e.target.value
+    })
+  }
+
   onChangeDescription(e) {
     this.setState({
       description: e.target.value
@@ -83,6 +90,7 @@ export default class EditExercise extends Component {
 
     const exercise = {
       username: this.state.username,
+      classyear: this.state.classyear,
       description: this.state.description,
       duration: this.state.duration,
       date: this.state.date
