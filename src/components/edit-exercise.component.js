@@ -77,6 +77,27 @@ export default class EditExercise extends Component {
     this.setState({
       duration: e.target.value
     })
+    switch(this.state.description) {
+      case "Diving":
+          this.setState({
+              yardage: Math.round(e.target.value*(750/15))
+          })
+          break;
+      case "Dryland":
+          this.setState({
+              yardage: Math.round(e.target.value*(1000/15))
+          })
+          break;
+      case "Lifting":
+          this.setState({
+              yardage: Math.round(e.target.value*(1000/15))
+          })
+          break;
+      default:
+          this.setState({
+              yardage: Math.round(e.target.value)
+          })
+    }
   }
 
   onChangeDate(date) {
@@ -148,6 +169,7 @@ export default class EditExercise extends Component {
               onChange={this.onChangeDuration}
               />
         </div>
+        <p>Yardage Value: {this.state.yardage}</p>
         <div className="form-group">
           <label>Date: </label>
           <div>
