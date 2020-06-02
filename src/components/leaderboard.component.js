@@ -18,10 +18,23 @@ export default class Leaderboard extends Component {
             exercises2022: 0,
             exercises2023: 0,
             exercises2024: 0,
+            // users: [],
+            // dict: {},
         };
     }
 
     componentDidMount() {
+        // axios.get('/users/')
+        //     .then(response => {
+        //         console.log("RESPONSE", response);
+        //         if (response.data.length > 0) {
+        //             console.log("hi");
+        //             this.setState({
+        //                 users: response.data.map(user => user),
+        //             })
+        //         }
+        //     })
+
         axios.get('/exercises/')
             .then(response => {
                 this.setState({ exercises: response.data})
@@ -38,6 +51,17 @@ export default class Leaderboard extends Component {
         })
     }
 
+    // getIndividuals() {
+    //     for(user in this.state.users) {
+    //         axios.get('/exercises/')
+    //         .then(response => {
+    //             this.setState({ dict[user]: response.data.filter(el => el.classyear === "2020").reduce((a, b) => a + b.yardage, 0)})
+    //         })
+    //         .catch((error) => {
+    //             console.log(error);
+    //         })
+    //     }
+    // }
     getClassTotal2020() {
         axios.get('/exercises/')
             .then(response => {

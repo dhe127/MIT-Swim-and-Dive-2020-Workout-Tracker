@@ -92,7 +92,7 @@ export default class EditExercise extends Component {
             break;
         case "Light/Moderate Cardio":
             this.setState({
-                yardage: Math.round(this.state.duration*(700/15))
+                yardage: Math.round(this.state.duration*(600/15))
             })
             break;
         case "Intense Cardio":
@@ -130,7 +130,7 @@ export default class EditExercise extends Component {
           break;
       case "Light/Moderate Cardio":
           this.setState({
-              yardage: Math.round(e.target.value*(700/15))
+              yardage: Math.round(e.target.value*(600/15))
           })
           break;
       case "Intense Cardio":
