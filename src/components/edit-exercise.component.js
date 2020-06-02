@@ -71,6 +71,41 @@ export default class EditExercise extends Component {
     this.setState({
       description: e.target.value
     })
+
+    if(this.state.description != '' && this.state.duration != 0) {
+      // Yardage converter
+      switch(this.state.description) {
+        case "Diving":
+            this.setState({
+                yardage: Math.round(this.state.duration*(800/15))
+            })
+            break;
+        case "Dryland":
+            this.setState({
+                yardage: Math.round(this.state.duration*(1000/15))
+            })
+            break;
+        case "Lifting":
+            this.setState({
+                yardage: Math.round(this.state.duration*(1000/15))
+            })
+            break;
+        case "Light/Moderate Cardio":
+            this.setState({
+                yardage: Math.round(this.state.duration*(700/15))
+            })
+            break;
+        case "Intense Cardio":
+            this.setState({
+                yardage: Math.round(this.state.duration*(1200/15))
+            })
+            break;
+        default:
+            this.setState({
+                yardage: Math.round(this.state.duration)
+            })
+          }
+    }
   }
 
   onChangeDuration(e) {
@@ -80,7 +115,7 @@ export default class EditExercise extends Component {
     switch(this.state.description) {
       case "Diving":
           this.setState({
-              yardage: Math.round(e.target.value*(750/15))
+              yardage: Math.round(e.target.value*(800/15))
           })
           break;
       case "Dryland":
@@ -91,6 +126,16 @@ export default class EditExercise extends Component {
       case "Lifting":
           this.setState({
               yardage: Math.round(e.target.value*(1000/15))
+          })
+          break;
+      case "Light/Moderate Cardio":
+          this.setState({
+              yardage: Math.round(e.target.value*(700/15))
+          })
+          break;
+      case "Intense Cardio":
+          this.setState({
+              yardage: Math.round(e.target.value*(1200/15))
           })
           break;
       default:
@@ -159,10 +204,12 @@ export default class EditExercise extends Component {
                 <option value ="Diving">Diving</option>
                 <option value ="Dryland">Dryland</option>
                 <option value ="Lifting">Lifting</option>
+                <option value ="Light/Moderate Cardio">Light/Moderate Cardio</option>
+                <option value ="Intense Cardio">Intense Cardio</option>
           </select>
         </div>
         <div className="form-group">
-          <label>Duration (in minutes): </label>
+          <label>Duration (in Minutes) or Yardage (Swim): </label>
           <input 
               type="text" 
               className="form-control"
