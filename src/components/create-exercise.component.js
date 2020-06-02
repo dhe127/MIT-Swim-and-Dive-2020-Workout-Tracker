@@ -85,7 +85,7 @@ export default class CreateExercise extends Component {
                     break;
                 case "Intense Cardio":
                     this.setState({
-                        yardage: Math.round(this.state.duration*(800/15))
+                        yardage: Math.round(this.state.duration*(1200/15))
                     })
                     break;
                 default:
@@ -125,7 +125,7 @@ export default class CreateExercise extends Component {
                 break;
             case "Intense Cardio":
                 this.setState({
-                    yardage: Math.round(e.target.value*(800/15))
+                    yardage: Math.round(e.target.value*(1200/15))
                 })
                 break;
             default:
