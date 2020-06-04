@@ -29,7 +29,9 @@ export default class ExercisesList extends Component {
     componentDidMount() {
         axios.get('/exercises/')
             .then(response => {
-                this.setState({ exercises: response.data})
+                this.setState({ exercises: response.data.sort(function(a,b){
+                    return new Date(b.date) - new Date(a.date);
+                  })})
             })
             .catch((error) => {
                 console.log(error);

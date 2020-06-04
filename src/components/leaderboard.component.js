@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import CanvasJSReact from './canvasjs.react';
+//var CanvasJSReact = require('./canvasjs.react');
+var CanvasJS = CanvasJSReact.CanvasJS;
+var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 export default class Leaderboard extends Component {
     constructor(props) {
@@ -62,6 +66,7 @@ export default class Leaderboard extends Component {
     //         })
     //     }
     // }
+
     getClassTotal2020() {
         axios.get('/exercises/')
             .then(response => {
@@ -129,16 +134,45 @@ export default class Leaderboard extends Component {
     // }
 
     render() {
+        const options = {
+			animationEnabled: true,
+			theme: "dark1",
+			title:{
+				text: "Official Leaderboard"
+			},
+			axisX: {
+				title: "Class Year",
+                reversed: true,
+                titleFontSize: 20,
+                titleFontWeight: "bold",
+			},
+			axisY: {
+                
+				title: "Average Yardage Per Person",
+                labelFormatter: this.addSymbols,
+                titleFontSize: 20,
+                titleFontWeight: "bold",
+			},
+			data: [{
+				type: "bar",
+				dataPoints: [
+					{ y:  this.state.exercises2020 / 11, label: "2020" },
+					{ y:  this.state.exercises2021 / 9, label: "2021" },
+					{ y:  this.state.exercises2022 / 16, label: "2022" },
+					{ y:  this.state.exercises2023 / 22, label: "2023" },
+					{ y:  this.state.exercises2024 / 26, label: "2024" },
+				]
+			}]
+		}
         return (
             <div>
-                <h3>Leaderboard</h3>
-
-
-                <p>Class of 2020 Total: {this.state.exercises2020}</p>
-                <p>Class of 2021 Total: {this.state.exercises2021}</p>
-                <p>Class of 2022 Total: {this.state.exercises2022}</p>
-                <p>Class of 2023 Total: {this.state.exercises2023}</p>
-                <p>Class of 2024 Total: {this.state.exercises2024}</p>
+                <div>
+                    <CanvasJSChart options = {options}
+                        /* onRef={ref => this.chart = ref} */
+                    />
+                    {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
+		        </div>
+	
                 {/* <table className="table"
                     <thead className="thead-light">
                         <tr>
@@ -153,6 +187,16 @@ export default class Leaderboard extends Component {
                         { this.getClassTotal2020(), this.getClassTotal2021, this.getClassTotal2022, this.getClassTotal2023, this.getClassTotal2024 }
                     </tbody>
                 </table> */}
+
+                <h3>Total Yardage</h3>
+
+
+                <p>Class of 2020 Total: {this.state.exercises2020}</p>
+                <p>Class of 2021 Total: {this.state.exercises2021}</p>
+                <p>Class of 2022 Total: {this.state.exercises2022}</p>
+                <p>Class of 2023 Total: {this.state.exercises2023}</p>
+                <p>Class of 2024 Total: {this.state.exercises2024}</p>
+
             </div>
         )
     }
