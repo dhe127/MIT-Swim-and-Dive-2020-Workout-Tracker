@@ -15,6 +15,11 @@ router.route('/add').post((req, res) => {
     const yardage = req.body.yardage;
     const date = Date.parse(req.body.date);
 
+    DESCRIPTIONS = ["Swimming", "Lifting", "Dryland", "Diving", "Light Cardio", "Moderate Cardio", "Intense Cardio"]
+    if (!DESCRIPTIONS.includes(description)) {
+        res.status(400).json("Enter a legitimate exercise");
+    }
+
     const newExercise = new Exercise({
         username,
         classyear,
