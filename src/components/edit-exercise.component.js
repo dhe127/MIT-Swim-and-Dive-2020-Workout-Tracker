@@ -90,9 +90,14 @@ export default class EditExercise extends Component {
                 yardage: Math.round(this.state.duration*(1000/15))
             })
             break;
-        case "Light/Moderate Cardio":
+        case "Light Cardio":
             this.setState({
                 yardage: Math.round(this.state.duration*(600/15))
+            })
+            break;
+        case "Moderate Cardio":
+            this.setState({
+                yardage: Math.round(this.state.duration*(800/15))
             })
             break;
         case "Intense Cardio":
@@ -128,11 +133,16 @@ export default class EditExercise extends Component {
               yardage: Math.round(e.target.value*(1000/15))
           })
           break;
-      case "Light/Moderate Cardio":
-          this.setState({
-              yardage: Math.round(e.target.value*(600/15))
-          })
-          break;
+      case "Light Cardio":
+            this.setState({
+                yardage: Math.round(this.state.duration*(600/15))
+            })
+            break;
+      case "Moderate Cardio":
+            this.setState({
+                yardage: Math.round(this.state.duration*(800/15))
+            })
+            break;
       case "Intense Cardio":
           this.setState({
               yardage: Math.round(e.target.value*(1200/15))
@@ -204,7 +214,8 @@ export default class EditExercise extends Component {
                 <option value ="Diving">Diving</option>
                 <option value ="Dryland">Dryland</option>
                 <option value ="Lifting">Lifting</option>
-                <option value ="Light/Moderate Cardio">Light/Moderate Cardio</option>
+                <option value ="Light Cardio">Light Cardio</option>
+                <option value ="Moderate Cardio">Moderate Cardio</option>
                 <option value ="Intense Cardio">Intense Cardio</option>
           </select>
         </div>
