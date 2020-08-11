@@ -15,78 +15,95 @@ export default class Leaderboard extends Component {
         this.getClassTotal2022 = this.getClassTotal2022.bind(this)
         this.getClassTotal2023 = this.getClassTotal2023.bind(this)
         this.getClassTotal2024 = this.getClassTotal2024.bind(this)
-        
+        this.getIndividuals = this.getIndividuals.bind(this)
+        this.getIndTotal = this.getIndTotal.bind(this)
+
         this.state = {
+            exercises: [],
             exercises2020: 0,
             exercises2021: 0,
             exercises2022: 0,
             exercises2023: 0,
             exercises2024: 0,
-            // users: [],
-            // dict: {},
+            users: [],
+            indTotal: {},
         };
     }
 
-    componentDidMount() {
-        // axios.get('/users/')
-        //     .then(response => {
-        //         console.log("RESPONSE", response);
-        //         if (response.data.length > 0) {
-        //             console.log("hi");
-        //             this.setState({
-        //                 users: response.data.map(user => user),
-        //             })
-        //         }
-        //     })
 
-        axios.get('/exercises/')
-            .then(response => {
-                this.setState({ exercises: response.data})
+    async componentDidMount() {
+
+        // do a try catch
+        const usersResponse = await axios.get('/users/');
+        const exercisesResponse = await axios.get('/exercises/');
+
+        if (usersResponse.data.length > 0 && exercisesResponse.data.length > 0) {
+            const users = usersResponse.data.map(user => user.username);
+            console.log("hi" + users);
+            this.setState({
+                ...this.state,
+                users: users,
+                exercises: exercisesResponse.data,
+                indTotal: this.getIndTotal(users, exercisesResponse.data),
+                // would rather use await, too many indents this way
+                // function () {}
             })
-            .catch((error) => {
-                console.log(error);
-            })
+        };
+
         this.setState({
+            ...this.state,
             exercises2020: this.getClassTotal2020(),
             exercises2021: this.getClassTotal2021(),
             exercises2022: this.getClassTotal2022(),
             exercises2023: this.getClassTotal2023(),
-            exercises2024: this.getClassTotal2024()
+            exercises2024: this.getClassTotal2024(),
         })
+
     }
 
-    // getIndividuals() {
-    //     for(user in this.state.users) {
-    //         axios.get('/exercises/')
-    //         .then(response => {
-    //             this.setState({ dict[user]: response.data.filter(el => el.classyear === "2020").reduce((a, b) => a + b.yardage, 0)})
-    //         })
-    //         .catch((error) => {
-    //             console.log(error);
-    //         })
-    //     }
-    // }
+    getIndividuals() {
+        // var dict = {};
+
+        console.log("UUUUSERS", this.state.users);
+        // this.setState({indExercises: dict});
+        return this.state.users;
+    }
+
+    getIndTotal(users, exercises) {
+        console.log("austistic users", users);
+        const dict = {};
+        for (const user of users) {
+            console.log("individual user", user);
+            
+            let yardage = 0;
+            yardage = exercises.filter(el => el.username === user).reduce((a, b) => a + b.yardage, 0);
+            console.log("user: ", user, "yardage: ", yardage);
+            dict[user] = yardage;
+        }
+
+        return dict;
+    }
 
     getClassTotal2020() {
         axios.get('/exercises/')
             .then(response => {
-                console.log("DATA", response.data);
-                console.log("FILTERED", response.data.filter(el => el.classyear === "2020"));
-                console.log("Reduced", response.data.filter(el => el.classyear === "2020").reduce((a, b) => a + b.yardage, 0));
+                // console.log("DATA", response.data);
+                // console.log("FILTERED", response.data.filter(el => el.classyear === "2020"));
+                // console.log("Reduced", response.data.filter(el => el.classyear === "2020").reduce((a, b) => a + b.yardage, 0));
 
-                this.setState({ exercises2020: response.data.filter(el => el.classyear === "2020").reduce((a, b) => a + b.yardage, 0)})
+                this.setState({ exercises2020: response.data.filter(el => el.classyear === "2020").reduce((a, b) => a + b.yardage, 0) })
             })
             .catch((error) => {
                 console.log(error);
             })
-        console.log(this.state);
+        // console.log(this.state);
         return this.state.exercises2020;
     }
 
     getClassTotal2021() {
         axios.get('/exercises/')
             .then(response => {
-                this.setState({ exercises2021: response.data.filter(el => el.classyear === "2021").reduce((a, b) => a + b.yardage, 0)})
+                this.setState({ exercises2021: response.data.filter(el => el.classyear === "2021").reduce((a, b) => a + b.yardage, 0) })
             })
             .catch((error) => {
                 console.log(error);
@@ -97,7 +114,7 @@ export default class Leaderboard extends Component {
     getClassTotal2022() {
         axios.get('/exercises/')
             .then(response => {
-                this.setState({ exercises2022: response.data.filter(el => el.classyear === "2022").reduce((a, b) => a + b.yardage, 0)})
+                this.setState({ exercises2022: response.data.filter(el => el.classyear === "2022").reduce((a, b) => a + b.yardage, 0) })
             })
             .catch((error) => {
                 console.log(error);
@@ -108,7 +125,7 @@ export default class Leaderboard extends Component {
     getClassTotal2023() {
         axios.get('/exercises/')
             .then(response => {
-                this.setState({ exercises2023: response.data.filter(el => el.classyear === "2023").reduce((a, b) => a + b.yardage, 0)})
+                this.setState({ exercises2023: response.data.filter(el => el.classyear === "2023").reduce((a, b) => a + b.yardage, 0) })
             })
             .catch((error) => {
                 console.log(error);
@@ -119,7 +136,7 @@ export default class Leaderboard extends Component {
     getClassTotal2024() {
         axios.get('/exercises/')
             .then(response => {
-                this.setState({ exercises2024: response.data.filter(el => el.classyear === "2024").reduce((a, b) => a + b.yardage, 0)})
+                this.setState({ exercises2024: response.data.filter(el => el.classyear === "2024").reduce((a, b) => a + b.yardage, 0) })
             })
             .catch((error) => {
                 console.log(error);
@@ -135,44 +152,60 @@ export default class Leaderboard extends Component {
 
     render() {
         const options = {
-			animationEnabled: true,
-			theme: "dark1",
-			title:{
-				text: "Official Leaderboard"
-			},
-			axisX: {
-				title: "Class Year",
+            animationEnabled: true,
+            theme: "dark1",
+            title: {
+                text: "Official Leaderboard"
+            },
+            axisX: {
+                title: "Class Year",
                 reversed: true,
                 titleFontSize: 20,
                 titleFontWeight: "bold",
-			},
-			axisY: {
-                
-				title: "Average Yardage Per Person",
+            },
+            axisY: {
+
+                title: "Average Yardage Per Person",
                 labelFormatter: this.addSymbols,
                 titleFontSize: 20,
                 titleFontWeight: "bold",
-			},
-			data: [{
-				type: "bar",
-				dataPoints: [
-					{ y:  this.state.exercises2020 / 11, label: "2020" },
-					{ y:  this.state.exercises2021 / 9, label: "2021" },
-					{ y:  this.state.exercises2022 / 16, label: "2022" },
-					{ y:  this.state.exercises2023 / 22, label: "2023" },
-					{ y:  this.state.exercises2024 / 26, label: "2024" },
-				]
-			}]
-		}
+            },
+            data: [{
+                type: "bar",
+                dataPoints: [
+                    { y: this.state.exercises2020 / 11, label: "2020" },
+                    { y: this.state.exercises2021 / 9, label: "2021" },
+                    { y: this.state.exercises2022 / 16, label: "2022" },
+                    { y: this.state.exercises2023 / 22, label: "2023" },
+                    { y: this.state.exercises2024 / 26, label: "2024" },
+                ]
+            }]
+        }
+
+        const dict = this.state.indTotal;
+
+        const items = Object.keys(dict).map(function(key) {
+            return [key, dict[key]];
+          });
+
+        items.sort(function(first, second) {
+            return second[1] - first[1];
+          });
+        
+        let leaderboardHTML = '';
+        for (var person of items) {
+            leaderboardHTML +=  '<tr><td>' + person[0] + '</td><td>' + person[1] + '</td></tr>';
+        }
+
         return (
             <div>
                 <div>
-                    <CanvasJSChart options = {options}
-                        /* onRef={ref => this.chart = ref} */
+                    <CanvasJSChart options={options}
+                    /* onRef={ref => this.chart = ref} */
                     />
                     {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
-		        </div>
-	
+                </div>
+
                 {/* <table className="table"
                     <thead className="thead-light">
                         <tr>
@@ -196,6 +229,21 @@ export default class Leaderboard extends Component {
                 <p>Class of 2022 Total: {this.state.exercises2022}</p>
                 <p>Class of 2023 Total: {this.state.exercises2023}</p>
                 <p>Class of 2024 Total: {this.state.exercises2024}</p>
+{/* 
+                <div>Individuals: {Object.keys(this.state.indTotal).map(key => {
+                    return <p>{key}</p>;
+                })} </div> */}
+
+                <div >Individual Leaderboard: 
+                {/* {Object.keys(this.state.indTotal).map(key => {
+                    return <p>{key + ' ' + this.state.indTotal[key]}</p>;
+                })} */}
+                    {items.map((person, index) => {
+                    index += 1; 
+                    return <p>{index + '. ' + person[0] + ' ' + person[1]}</p>;
+                })}
+                </div> 
+
 
             </div>
         )

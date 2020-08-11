@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
+    "concurrently": "^5.2.0",
     "react": "^16.13.1",
     "react-datepicker": "^2.14.1",
     "react-dom": "^16.13.1",
@@ -19,6 +20,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start": "node backend/server.js",
+    "dev": "concurrently -k -r \"react-scripts start\" \"nodemon backend/server.js\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run build"
   },
   "eslintConfig": {
@@ -38,6 +40,6 @@
   },
   "engines": {
     "node": "10.16.0"
-},
+  },
   "proxy": "http://localhost:5000"
 }
