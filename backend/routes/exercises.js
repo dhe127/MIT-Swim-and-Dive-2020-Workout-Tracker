@@ -14,6 +14,11 @@ router.route('/add').post((req, res) => {
     const duration = req.body.duration;
     const yardage = req.body.yardage;
     const date = Date.parse(req.body.date);
+    DESCRIPTIONS = ["Swimming"]
+    if (!DESCRIPTIONS.includes(description)) {
+        res.status(400).json("wtf you trolling bro");
+    }
+        
 
     DESCRIPTIONS = ["Swimming", "Lifting", "Dryland", "Diving", "Light Cardio", "Moderate Cardio", "Intense Cardio"]
     if (!DESCRIPTIONS.includes(description)) {
